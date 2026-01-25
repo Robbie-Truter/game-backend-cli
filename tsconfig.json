@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // --- Project Structure ---
+    "baseUrl": "./src",
+    "paths": {
+      "#/*": ["*"]
+    },
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    // --- Environment & Modules ---
+    "target": "es2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+
+    // --- Strictness & Code Quality ---
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // --- General ---
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
