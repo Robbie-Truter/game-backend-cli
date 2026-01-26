@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     // --- Project Structure ---
-    "baseUrl": "./src",
-    "paths": {
-      "#/*": ["*"]
-    },
     "outDir": "./dist",
     "rootDir": "./src",
 

@@ -12,9 +12,6 @@
     "lint": "eslint . --ext .ts",
     "format:check": "prettier --check ."
   },
-  "imports": {
-    "#/*": "./dist/*"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,10 +21,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.10",
     "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
     "globals": "^17.1.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.8.1",
