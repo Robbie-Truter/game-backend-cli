@@ -12,3 +12,5 @@ app.get('/', (req, res) => {
 
 // --- Error handler middleware ---
 app.use(errorHandler);
+
+export default app;
