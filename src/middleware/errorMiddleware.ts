@@ -4,7 +4,7 @@ export interface AppError extends Error {
   status?: number;
 }
 
-export const errorHandler = (
+export const errorMiddleware = (
   err: AppError,
   _req: Request,
   res: Response,

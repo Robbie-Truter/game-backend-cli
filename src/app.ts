@@ -1,16 +1,15 @@
 import express from 'express';
-import { errorHandler } from './middleware/errorHandler.js';
+import userRouter from './routes/user.js';
+import { errorMiddleware } from './middleware/errorMiddleware.js';
+import { notFoundMiddleware } from './middleware/notFoundMiddleware.js';
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  console.log('Request received for:', req.method, req.path);
-  res.send('Hello World');
-});
+app.use('/api', userRouter);
 
-// --- Error handler middleware ---
-app.use(errorHandler);
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 export default app;
