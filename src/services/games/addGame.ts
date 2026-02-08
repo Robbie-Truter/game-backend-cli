@@ -1,14 +1,15 @@
-import { type AppError } from '../middleware/errorMiddleware.js';
-import { prisma } from '../db/prismaClient.js';
-import { Prisma } from '../generated/prisma/client.js';
+import { type AppError } from '../../middleware/errorMiddleware.js';
+import { prisma } from '../../prisma/prisma.Client.js';
+import { Prisma } from '../../generated/prisma/client.js';
+import { type TAddGame } from '../../types/games/addGame.js';
 
-export async function createUser(user: any) {
+export async function addGame(payload: TAddGame) {
   try {
-    const newUser = await prisma.user.create({
-      data: user,
+    const newGame = await prisma.game.create({
+      data: payload,
     });
 
-    return newUser;
+    return newGame;
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // P2002 is the error code for a unique constraint violation

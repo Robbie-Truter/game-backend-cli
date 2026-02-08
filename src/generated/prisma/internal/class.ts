@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        Int     @id @default(autoincrement())\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// --- Enums ---\nenum GameStatus {\n  UPCOMING\n  RELEASED\n}\n\nenum PreOrderStatus {\n  PENDING\n  COMPLETED\n  CANCELLED\n}\n\n// --- Table Schemas ---\nmodel User {\n  id           Int    @id @default(autoincrement())\n  email        String @unique\n  username     String @unique\n  passwordHash String\n\n  //Relations\n  preOrders    PreOrder[]\n  libraryItems LibraryItem[]\n}\n\nmodel Game {\n  id           Int        @id @default(autoincrement())\n  title        String\n  releaseDate  DateTime\n  maxPreorders Int\n  status       GameStatus\n\n  // Timestamps\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // Relations\n  preOrders    PreOrder[]\n  libraryItems LibraryItem[]\n}\n\nmodel PreOrder {\n  id Int @id @default(autoincrement())\n\n  // Timestamps\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  //User Relations\n  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId Int\n\n  //Game Relations\n  game   Game @relation(fields: [gameId], references: [id], onDelete: Cascade)\n  gameId Int\n\n  status PreOrderStatus @default(PENDING)\n\n  @@unique([userId, gameId])\n}\n\nmodel LibraryItem {\n  id Int @id @default(autoincrement())\n\n  // Timestamps\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  //User Relations\n  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId Int\n\n  //Game Relations\n  game   Game @relation(fields: [gameId], references: [id], onDelete: Cascade)\n  gameId Int\n\n  @@unique([userId, gameId])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"preOrders\",\"kind\":\"object\",\"type\":\"PreOrder\",\"relationName\":\"PreOrderToUser\"},{\"name\":\"libraryItems\",\"kind\":\"object\",\"type\":\"LibraryItem\",\"relationName\":\"LibraryItemToUser\"}],\"dbName\":null},\"Game\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"releaseDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"maxPreorders\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"GameStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"preOrders\",\"kind\":\"object\",\"type\":\"PreOrder\",\"relationName\":\"GameToPreOrder\"},{\"name\":\"libraryItems\",\"kind\":\"object\",\"type\":\"LibraryItem\",\"relationName\":\"GameToLibraryItem\"}],\"dbName\":null},\"PreOrder\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PreOrderToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToPreOrder\"},{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"PreOrderStatus\"}],\"dbName\":null},\"LibraryItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"LibraryItemToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"game\",\"kind\":\"object\",\"type\":\"Game\",\"relationName\":\"GameToLibraryItem\"},{\"name\":\"gameId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -187,14 +187,34 @@ export interface PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+   * `prisma.game`: Exposes CRUD operations for the **Game** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
+    * // Fetch zero or more Games
+    * const games = await prisma.game.findMany()
     * ```
     */
-  get post(): Prisma.PostDelegate<ExtArgs, { omit: OmitOpts }>;
+  get game(): Prisma.GameDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.preOrder`: Exposes CRUD operations for the **PreOrder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PreOrders
+    * const preOrders = await prisma.preOrder.findMany()
+    * ```
+    */
+  get preOrder(): Prisma.PreOrderDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.libraryItem`: Exposes CRUD operations for the **LibraryItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LibraryItems
+    * const libraryItems = await prisma.libraryItem.findMany()
+    * ```
+    */
+  get libraryItem(): Prisma.LibraryItemDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
