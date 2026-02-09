@@ -254,10 +254,10 @@ export type GameOrderByWithRelationInput = {
 
 export type GameWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  title?: string
   AND?: Prisma.GameWhereInput | Prisma.GameWhereInput[]
   OR?: Prisma.GameWhereInput[]
   NOT?: Prisma.GameWhereInput | Prisma.GameWhereInput[]
-  title?: Prisma.StringFilter<"Game"> | string
   releaseDate?: Prisma.DateTimeFilter<"Game"> | Date | string
   maxPreorders?: Prisma.IntFilter<"Game"> | number
   status?: Prisma.EnumGameStatusFilter<"Game"> | $Enums.GameStatus
@@ -265,7 +265,7 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   preOrders?: Prisma.PreOrderListRelationFilter
   libraryItems?: Prisma.LibraryItemListRelationFilter
-}, "id">
+}, "id" | "title">
 
 export type GameOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
