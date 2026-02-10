@@ -7,7 +7,7 @@ export type TAddGame = {
   title: string;
   releaseDate: Date;
   maxPreorders: number;
-  status: (typeof gameStatuses)[number];
+  status: 'UPCOMING' | 'RELEASED';
 };
 
 // --- Payload ---

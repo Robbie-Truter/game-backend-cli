@@ -10,16 +10,16 @@ export async function addGame(payload: TAddGame) {
     });
 
     return newGame;
-  } catch (e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // P2002 is the error code for a unique constraint violation
-      if (e.code === 'P2002') {
+      if (error) {
         const err: AppError = new Error(`User with this email already exists.`);
         err.status = 409;
         throw err;
       }
     }
     // For other errors, we re-throw them
-    throw e;
+    throw error;
   }
 }
