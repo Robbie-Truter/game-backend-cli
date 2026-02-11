@@ -25,10 +25,12 @@ model User {
   email                     String  @unique
   username                  String  @unique
   passwordHash              String
+  refreshToken              String
 
   //Relations
   preOrders                 PreOrder[]
   libraryItems              LibraryItem[]
+  refreshTokens RefreshToken[]
 }
 
 model Game {
@@ -83,4 +85,23 @@ model LibraryItem {
   gameId                    Int
 
   @@unique([userId, gameId])
+}
+
+// Can store multiple refresh tokens for each user
+model RefreshToken {
+  id                        Int @id @default(autoincrement())
+  tokenHash                 String
+
+  // Timestamps
+  createdAt                 DateTime @default(now())
+  expiresAt                 DateTime
+
+  // Metadata
+  device                    String?
+
+  //User Relations
+  user                      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                    Int
+
+  @@index([userId])
 }
