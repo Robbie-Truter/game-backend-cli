@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from 'express';
-import { addGame } from '../../services/games/addGame.js';
+import { addGame } from '../../services/games/addGameService.js';
 
 const addGameController = async (
   req: Request,

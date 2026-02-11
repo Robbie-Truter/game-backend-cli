@@ -1,7 +1,7 @@
 import { type AppError } from '../../middleware/errorMiddleware.js';
 import { prisma } from '../../prisma/prisma.Client.js';
 import { Prisma } from '../../generated/prisma/client.js';
-import { type TAddGame } from '../../types/games/addGame.js';
+import { type TAddGame } from '../../types/games/addGameSchema.js';
 
 export async function addGame(payload: TAddGame) {
   try {
