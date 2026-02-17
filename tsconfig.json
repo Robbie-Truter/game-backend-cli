@@ -13,6 +13,8 @@
     "strict": true,
     "verbatimModuleSyntax": true,
     "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
 
