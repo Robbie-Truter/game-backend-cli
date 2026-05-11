@@ -1,16 +1,19 @@
 import express from 'express';
-import { errorHandler } from './middleware/errorHandler.js';
+import gameRouter from './routes/gameRoutes.js';
+import authRouter from './routes/authRoutes.js';
+import { errorMiddleware } from './middleware/errorMiddleware.js';
+import { notFoundMiddleware } from './middleware/notFoundMiddleware.js';
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  console.log('Request received for:', req.method, req.path);
-  res.send('Hello World');
-});
+// --- Routes ---
+app.use('/game', gameRouter);
+app.use('/auth', authRouter);
 
-// --- Error handler middleware ---
-app.use(errorHandler);
+// --- Custom Middleware ---
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 export default app;
