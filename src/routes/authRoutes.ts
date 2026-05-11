@@ -6,22 +6,22 @@ import { AddGameSchema } from '../types/games/addGameSchema.js';
 import { searchGamesSchema } from '../types/games/searchGamesSchema.js';
 import searchGamesController from '../controllers/games/searchGamesController.js';
 import { AddUserSchema } from '../types/users/addUserSchema.js';
-import addUserController from '../controllers/users/addUserController.js';
+import registerController from '../controllers/auth/registerController.js';
 
 // POST
-router.post('/login', validationMiddleware(AddGameSchema), addGameController);
+router.post('/login', validationMiddleware(AddGameSchema), addGameController); // TODO: implement login
 
 router.post(
   '/register',
   validationMiddleware(AddUserSchema),
-  addUserController,
+  registerController,
 );
 
 // GET
 router.get(
   '/refresh',
   validationMiddleware(searchGamesSchema),
-  searchGamesController,
+  searchGamesController, // TODO: implement refresh
 );
 
 export default router;

@@ -10,10 +10,10 @@ export type TAddGame = {
   status: 'UPCOMING' | 'RELEASED';
 };
 
-// --- Payload ---
+// --- Payload ZOD Schema ---
 export const AddGameSchema = z.strictObject({
-  title: z.string(),
+  title: z.string().trim().min(1, 'Game title cannot be empty'),
   releaseDate: z.coerce.date(),
-  maxPreorders: z.number(),
+  maxPreorders: z.number().int().positive(),
   status: z.enum(gameStatuses),
 });

@@ -14,7 +14,9 @@ export async function addUserService(payload: TAddUser) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // P2002 is the error code for a unique constraint violation
       if (error) {
-        const err: AppError = new Error(`User with this email already exists.`);
+        const err: AppError = new Error(
+          `User with this username or email already exists.`,
+        );
         err.status = 409;
         throw err;
       }
