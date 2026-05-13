@@ -1,27 +1,25 @@
 import { type Request, type Response, type NextFunction } from 'express';
 import { addUserService } from '../../services/users/addUserService.js';
 import bcrypt from 'bcrypt';
+import { AddUserSchema } from '../../types/users/addUserSchema.js';
+import { z } from 'zod';
 
 const registerController = async (
-  req: Request,
+  req: Request<
+    Record<string, never>,
+    Record<string, never>,
+    z.infer<typeof AddUserSchema>,
+    Record<string, never>
+  >,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { passwordHash, ...bodyRemainder } = req.body;
+    const { password, ...bodyRemainder } = req.body;
 
-    if (passwordHash.length < 6) {
-      return res
-        .status(400)
-        .json({ message: 'Password should be at least 6 characters long' });
-    }
+    const passwordHash = await bcrypt.hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash(passwordHash, 10);
-
-    await addUserService({
-      ...bodyRemainder,
-      passwordHash: hashedPassword,
-    });
+    await addUserService({ ...bodyRemainder, passwordHash });
 
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {

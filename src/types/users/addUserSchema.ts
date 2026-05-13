@@ -11,5 +11,5 @@ export type TAddUser = {
 export const AddUserSchema = z.strictObject({
   username: z.string(),
   email: z.email(),
-  passwordHash: z.string(),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
