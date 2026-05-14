@@ -3,9 +3,9 @@ import addGameController from '../controllers/games/addGameController.js';
 import validationMiddleware from '../middleware/validationMiddleware.js';
 import { AddGameSchema } from '../types/games/addGameSchema.js';
 import { searchGamesSchema } from '../types/games/searchGamesSchema.js';
-import searchGamesController from '../controllers/games/searchGamesController.js';
 import { AddUserSchema } from '../types/users/addUserSchema.js';
 import registerController from '../controllers/auth/registerController.js';
+import refreshTokenController from '../controllers/auth/refreshTokenController.js';
 
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.post(
 router.get(
   '/refresh',
   validationMiddleware(searchGamesSchema),
-  searchGamesController, // TODO: implement refresh
+  refreshTokenController,
 );
 
 export default router;
