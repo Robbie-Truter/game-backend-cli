@@ -1,18 +1,13 @@
-import { type Request, type Response, type NextFunction } from 'express';
+import { type Request, type Response } from 'express';
 import searchGames from '../../services/games/searchGamesService.js';
+import { asyncWrapper } from '../../utils/asyncWrapper.js';
 
-const searchGamesController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
+const searchGamesController = asyncWrapper(
+  async (req: Request, res: Response) => {
     const searchedGames = await searchGames(req.query);
 
     res.status(200).json(searchedGames);
-  } catch (error) {
-    next(error);
-  }
-};
+  },
+);
 
 export default searchGamesController;

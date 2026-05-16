@@ -25,15 +25,12 @@ const refreshTokenController = (req: Request, res: Response) => {
 
       const payload = decoded as TokenPayload;
 
-      // Additional checks (e.g., token version) happen here
-
       const newAccessToken = jwt.sign(
         { sub: payload.sub, role: payload.role },
         config.jwtSecret,
         { expiresIn: '15m' },
       );
 
-      // A new refresh token will also be generated here if using rotation
       return res.json({ accessToken: newAccessToken });
     },
   );

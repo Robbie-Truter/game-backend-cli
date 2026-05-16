@@ -1,9 +1,9 @@
-import { type Request, type Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../../config/config.js';
 import loginService from '../../services/auth/loginService.js';
+import { asyncWrapper } from '../../utils/asyncWrapper.js';
 
-const loginController = async (req: Request, res: Response) => {
+const loginController = asyncWrapper(async (req, res) => {
   const payload = await loginService(req.body);
 
   const accessToken = jwt.sign(payload, config.jwtSecret, {
@@ -21,6 +21,6 @@ const loginController = async (req: Request, res: Response) => {
   });
 
   return res.status(200).json({ accessToken });
-};
+});
 
 export default loginController;

@@ -6,12 +6,14 @@ import { searchGamesSchema } from '../types/games/searchGamesSchema.js';
 import { deleteGameSchema } from '../types/games/deleteGameSchema.js';
 import searchGamesController from '../controllers/games/searchGamesController.js';
 import deleteGameController from '../controllers/games/deleteGameController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // POST
 router.post(
   '/add-game',
+  authMiddleware,
   validationMiddleware(AddGameSchema),
   addGameController,
 );
@@ -19,6 +21,7 @@ router.post(
 // GET
 router.get(
   '/search-games',
+  authMiddleware,
   validationMiddleware(searchGamesSchema),
   searchGamesController,
 );
@@ -26,6 +29,7 @@ router.get(
 // DELETE
 router.delete(
   '/delete-game/:id',
+  authMiddleware,
   validationMiddleware(deleteGameSchema),
   deleteGameController,
 );
