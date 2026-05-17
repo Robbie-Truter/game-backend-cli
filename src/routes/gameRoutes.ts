@@ -7,6 +7,7 @@ import { deleteGameSchema } from '../types/games/deleteGameSchema.js';
 import searchGamesController from '../controllers/games/searchGamesController.js';
 import deleteGameController from '../controllers/games/deleteGameController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
+import { adminOnlyMiddleware } from '../middleware/adminOnlyMiddleware.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.post(
   '/add-game',
   authMiddleware,
+  adminOnlyMiddleware,
   validationMiddleware(AddGameSchema),
   addGameController,
 );
@@ -30,6 +32,7 @@ router.get(
 router.delete(
   '/delete-game/:id',
   authMiddleware,
+  adminOnlyMiddleware,
   validationMiddleware(deleteGameSchema),
   deleteGameController,
 );
