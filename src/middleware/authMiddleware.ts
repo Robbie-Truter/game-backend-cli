@@ -17,7 +17,7 @@ export const authMiddleware = (
   jwt.verify(token, jwtSecret, (err, decoded) => {
     if (err) return next(new ApiError('Failed to authenticate token', 403));
 
-    req.user = decoded as { userId: string };
+    req.user = decoded as { sub: string; role: string };
     next();
   });
 };

@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Game: 'Game',
   PreOrder: 'PreOrder',
-  LibraryItem: 'LibraryItem'
+  LibraryItem: 'LibraryItem',
+  RefreshToken: 'RefreshToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -77,7 +78,8 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   username: 'username',
-  passwordHash: 'passwordHash'
+  passwordHash: 'passwordHash',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -119,6 +121,18 @@ export const LibraryItemScalarFieldEnum = {
 export type LibraryItemScalarFieldEnum = (typeof LibraryItemScalarFieldEnum)[keyof typeof LibraryItemScalarFieldEnum]
 
 
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  device: 'device',
+  userId: 'userId'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -133,4 +147,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

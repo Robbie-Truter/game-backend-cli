@@ -207,7 +207,7 @@ export type PreOrderGroupByOutputType = {
   _max: PreOrderMaxAggregateOutputType | null
 }
 
-type GetPreOrderGroupByPayload<T extends PreOrderGroupByArgs> = Prisma.PrismaPromise<
+export type GetPreOrderGroupByPayload<T extends PreOrderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PreOrderGroupByOutputType, T['by']> &
       {
@@ -1342,6 +1342,11 @@ export type PreOrderFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` PreOrders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PreOrders.
+   */
   distinct?: Prisma.PreOrderScalarFieldEnum | Prisma.PreOrderScalarFieldEnum[]
 }
 

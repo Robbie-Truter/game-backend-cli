@@ -37,3 +37,8 @@ export type PreOrder = Prisma.PreOrderModel
  * 
  */
 export type LibraryItem = Prisma.LibraryItemModel
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel
