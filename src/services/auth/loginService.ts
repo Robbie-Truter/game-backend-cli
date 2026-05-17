@@ -20,7 +20,7 @@ const loginService = async (requestPayload: TLoginUser) => {
 
   return {
     sub: user.id.toString(),
-    role: 'user', //hardcoded role for now
+    role: user.role,
   };
 };
 
