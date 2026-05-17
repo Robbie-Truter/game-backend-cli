@@ -1,7 +1,7 @@
 import { prisma } from '../../prisma/prisma.Client.js';
-import type { TAddUser } from '../../types/users/addUserSchema.js';
+import type { TRegister } from '../../types/auth/registerSchema.js';
 
-export async function addUserService(payload: TAddUser) {
+export async function registerService(payload: TRegister) {
   const newUser = await prisma.user.create({
     data: payload,
   });
