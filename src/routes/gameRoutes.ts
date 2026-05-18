@@ -11,10 +11,12 @@ import { adminOnlyMiddleware } from '../middleware/adminOnlyMiddleware.js';
 
 const router = express.Router();
 
+// Authentication middleware
+router.use(authMiddleware);
+
 // POST
 router.post(
   '/add-game',
-  authMiddleware,
   adminOnlyMiddleware,
   validationMiddleware(AddGameSchema),
   addGameController,
@@ -23,7 +25,6 @@ router.post(
 // GET
 router.get(
   '/search-games',
-  authMiddleware,
   validationMiddleware(searchGamesSchema),
   searchGamesController,
 );
@@ -31,7 +32,6 @@ router.get(
 // DELETE
 router.delete(
   '/delete-game/:id',
-  authMiddleware,
   adminOnlyMiddleware,
   validationMiddleware(deleteGameSchema),
   deleteGameController,

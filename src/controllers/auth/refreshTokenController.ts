@@ -28,7 +28,7 @@ const refreshTokenController = (req: Request, res: Response) => {
       const newAccessToken = jwt.sign(
         { sub: payload.sub, role: payload.role },
         config.jwtSecret,
-        { expiresIn: '15m' },
+        { expiresIn: '30m' },
       );
 
       return res.json({ accessToken: newAccessToken });
