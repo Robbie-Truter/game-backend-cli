@@ -3,14 +3,6 @@ import type { TAddPreOrder } from '../../types/pre-orders/addPreOrderSchema.js';
 import ApiError from '../../utils/ApiError.js';
 
 export const addPreOrderService = async (params: TAddPreOrder) => {
-  if (!params?.gameId) {
-    throw new ApiError('Game ID is required', 400);
-  }
-
-  if (!params?.userId) {
-    throw new ApiError('User ID is required', 400);
-  }
-
   const game = await prisma.game.findUnique({
     where: { id: params.gameId },
   });
