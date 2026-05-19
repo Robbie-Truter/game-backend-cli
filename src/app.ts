@@ -2,6 +2,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import gameRouter from './routes/gameRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import libraryRouter from './routes/libraryRoutes.js';
+import preOrderRouter from './routes/preOrderRoutes.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 import { notFoundMiddleware } from './middleware/notFoundMiddleware.js';
 
@@ -13,6 +15,8 @@ app.use(cookieParser());
 // --- Routes ---
 app.use('/game', gameRouter);
 app.use('/auth', authRouter);
+app.use('/library', libraryRouter);
+app.use('/pre-order', preOrderRouter);
 
 // --- Custom Middleware ---
 app.use(notFoundMiddleware);
